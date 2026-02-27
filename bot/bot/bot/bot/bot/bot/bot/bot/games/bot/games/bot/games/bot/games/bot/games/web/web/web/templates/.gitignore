@@ -1,0 +1,34 @@
+# فایل‌های محیطی
+.env
+.env.*
+*.env
+
+# پایتون
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+
+# محیط مجازی
+venv/
+env/
+ENV/
+myenv/
+virtualenv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# پروژه
+bot_database.db
+*.db-journal
+instance/
