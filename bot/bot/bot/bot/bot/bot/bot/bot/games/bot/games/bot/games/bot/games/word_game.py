@@ -108,4 +108,34 @@ class WordGame:
         scores_text = "🏆 **امتیازات:**\n\n"
         sorted_scores = sorted(game['scores'].items(), key=lambda x: x[1], reverse=True)
         
-        for i, (user_id, score) in enumerate(sorted_scores,
+        for i, (user_id, score) in enumerate(sorted_scores, 1):
+            name = game['players'].get(user_id, f"کاربر {user_id}")
+            scores_text += f"{i}. {name}: {score} امتیاز\n"
+        
+        await update.message.reply_text(scores_text)
+    
+    async def end_game(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """پایان بازی"""
+        chat_id = update.message.chat_id
+        user_id = update.message.from_user.id
+        
+        if chat_id not in self.games:
+            await update.message.reply_text("❌ هیچ بازی در جریان نیست!")
+            return
+        
+        game = self.games[chat_id]
+        
+        # پیدا کردن برنده
+        winner_id = max(game['scores'], key=game['scores'].get)
+        winner_name = game['players'].get(winner_id, f"کاربر {winner_id}")
+        winner_score = game['scores'][winner_id]
+        
+        await update.message.reply_text(
+            f"🎮 **بازی تموم شد!**\n\n"
+            f"🏆 برنده: {winner_name}\n"
+            f"✨ با {winner_score} امتیاز\n\n"
+            f"📊 کلمات استفاده شده: {len(game['used_words'])} کلمه"
+        )
+        
+        # پاک کردن بازی
+        del self.games[chat_id]
