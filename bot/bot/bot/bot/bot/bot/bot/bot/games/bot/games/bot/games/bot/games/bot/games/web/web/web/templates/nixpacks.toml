@@ -1,0 +1,27 @@
+# تنظیمات Nixpacks برای Railway
+
+[phases.setup]
+nixPkgs = ["python311", "ffmpeg", "git"]
+
+[phases.install]
+cmds = [
+  "pip install --upgrade pip",
+  "pip install -r requirements.txt"
+]
+
+[phases.build]
+cmds = [
+  "echo '✅ بیلد کامل شد'"
+]
+
+[start]
+cmd = "python start.py"
+
+[environment]
+PYTHONUNBUFFERED = "1"
+PYTHONPATH = "."
+
+[metadata]
+name = "ربات تلگرام پیشرفته"
+version = "2.0.0"
+description = "ربات مدیریت گروه با بازی‌های مافیا و شطرنج"
